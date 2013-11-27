@@ -1,0 +1,60 @@
+<?php require_once('aq_admin_header.php'); ?>
+
+
+
+ 
+id:<?php echo $res['id']?><input type='hidden' id='id' value='<?php echo $res['id']?>'/><br>
+姓名：<input type='text' id='name' value='<?php echo $res['name']?>' /><br>
+是否是答疑老师：<input type='radio' name='radio' value='1' <?php if($res['aq_teacher']){?>checked<?php }?>/>是  <input type='radio' name='radio' value='0' <?php if(!$res['aq_teacher']){?>checked<?php }?>/>否<br>
+账户余额：<?php echo $res['aq_account_balance']?><br>
+擅长领域：
+
+<?php foreach($points as $k=>$v){ ?>
+<input type="checkbox" name="points" value="<?php echo $v['id']?>" <?php if(in_array($v['id'],$my_points)){?>checked<?php }?> ><?php echo $v['name']?>
+<?php } ?>
+<br>
+学校：<input type='text' id='school' value='<?php echo $res['school']?>' /><br>
+科目：<select id='subject'>
+  <?php foreach($subject_types as $key=>$val){ ?>
+  <option value=<?php echo $val['id'] ?> <?php if($val['id']==$res['subject']){?>selected="selected"<?php }?> ><?php echo $val['name'] ?></option>
+  <?php } ?>
+</select><br>
+小学/初中/高中：<input type='text' id='grade_type' value='<?php echo $res['grade_type']?>' />(1代表小学，2代表初中，3是高中)<br>
+简介：<br>
+<textarea id='intro' rows="10" cols="150" ><?php echo $res['intro']?></textarea><br>
+ 
+ <input type='button' value='提交'  id='submit'/><input type='button' value='取消并返回' id='cancel' />
+<script>
+console.log($('#name').val());console.log(encodeURI($('#name').val()));
+$('#submit').click(function(){
+  // 获取checkbox：
+    var str=""; 
+    $("input[name='points']:checked").each(function(){ 
+        str+=$(this).val()+","; 
+    })
+  var _url = "<?php echo Constant::ADMIN_URL ?>edit";
+  $.post(_url,
+        {
+          id:$('#id').val(),
+          aq_teacher:$('input:radio[name="radio"]:checked').val(),
+          name:encodeURI($('#name').val()),
+          aq_fields:str,
+          subject:$('#subject').val(),
+          school:$('#school').val(),
+          grade_type:$('#grade_type').val(),
+          intro:$('#intro').val()
+        },
+        function(data,status){
+            if(data){
+              alert('succ');
+              history.go(-1);
+            }else{
+              alert('fail');
+            }
+        }
+    )
+});
+$('#cancel').click(function(){
+  history.go(-1);
+});
+</script>   
