@@ -24,7 +24,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=812800910 DEFAULT CHARSET=utf8;
 
 
-
+ 
 CREATE TABLE `aq_teacher` (
   `id` int(11) NOT NULL,
   `aq_teacher` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否允许答疑，1：允许，0：不允许',
