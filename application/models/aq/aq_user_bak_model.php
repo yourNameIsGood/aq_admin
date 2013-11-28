@@ -42,7 +42,7 @@ class Aq_User_Bak_Model extends CI_Model{
                 if(!$this->_check_available($v['email'])){ //检测email是否可用
                   //写文件
                   $available_num ++;
-                  $result = $this->exist_user_into_aq_teacher($v['email']);
+                  $result = $this->exist_user_into_aq_teacher($v['email'],$v['subject'],$v['grade_type'],$v['school'],$v['intro']);
                   if($result){
                     $content = $v['name'].'的email:'.$v['email'].'重复了, 写进aq_teacher成功';
                     $succ_num ++;
@@ -118,7 +118,7 @@ class Aq_User_Bak_Model extends CI_Model{
     }
 
     //将已经存在user表中的用户，在aq_teacher中添加相应的记录
-    function exist_user_into_aq_teacher($email){
+    function exist_user_into_aq_teacher($email,$subject,$grade_type,$school,$intro){
         $sql = "select id,register_subject,user_type from user where email='$email'";
         $res = $this->db->query($sql)->row(0);
         if($res->user_type==3){
@@ -127,8 +127,8 @@ class Aq_User_Bak_Model extends CI_Model{
             if($num){
                 return false;
             }
-            if(!$res->register_subject)$res->register_subject=1;
-            $insert_sql = "insert into aq_teacher (id,aq_teacher,subject) values({$res->id},1,{$res->register_subject}) ";
+            // $res->register_subject=1;
+            $insert_sql = "insert into aq_teacher (id,aq_teacher,subject,grade_type,school,intro) values({$res->id},1,$subject,$grade_type,'$school','$intro') ";
             return $this->db->query($insert_sql);
         }
         return false;
@@ -151,6 +151,13 @@ class Aq_User_Bak_Model extends CI_Model{
         $sql = "select * from aq_point where id in ($point_ids)";
         $res = $this->db->query($sql)->result_array();
         return $res;   
+    }
+
+    //获取user表中的某个字段的值
+    function get_user_info($uid){
+      $sql = "select * from user where id = $uid";
+      $res = $this->db->query($sql)->row(0);
+      return $res;
     }
 
     function create_table(){

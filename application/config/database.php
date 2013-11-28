@@ -52,10 +52,6 @@ $active_record = TRUE;
 $db['default']['hostname'] = '192.168.11.12';
 $db['default']['username'] = 'tizi';
 $db['default']['password'] = 'tizi';
-
-// $db['default']['hostname'] = 'localhost';
-// $db['default']['username'] = 'root';
-// $db['default']['password'] = 'root';
 $db['default']['database'] = 'new_zujuan';
 
 //操作线上库  tizi 
@@ -65,7 +61,6 @@ $db['default']['database'] = 'new_zujuan';
  // $db['default']['port']     = '6060';
  // $db['default']['database'] = 'tizi';
 
- 
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
@@ -77,15 +72,6 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
-
-
- 
- 
- 
- 
- 
- 
-
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

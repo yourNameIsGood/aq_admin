@@ -125,7 +125,7 @@ class Welcome extends CI_Controller {
 									$data[$i]['subject'] = trans_subject($v[2]);
 									$data[$i]['grade_type'] = trans_grade_type($v[3]);
 									$data[$i]['school'] = $v[4];
-									$data[$i]['intro'] = $v[5];
+									$data[$i]['intro'] = addslashes($v[5]);
 									$data[$i]['password']='idf3EU$cd80412fd5d034ea3d6f24b296671d4fce847991'; // 默认密码为123123
 							}
 							$i++;
@@ -134,21 +134,23 @@ class Welcome extends CI_Controller {
 				// print_r ( $data);
 			if($data){
 					$res = $this->aubm->add($data);
-					echo '导入总数:'.$res['total'].'<br>';
-					echo '存在user表中的帐号数:'.$res['ava'].'<br>';
-					echo '插入aq_teacher成功:'.$res['succ'].'<br>';
-					echo '插入aq_teacher失败:'.$res['err'].'<br>'.'<br>'.'<br>';
-					echo '具体可参考/log下的文件';
+					echo 'Total account :'.$res['total'].'<br>';
+					echo 'existent account in table USER :'.$res['ava'].'<br>';
+					echo 'insert aq_teacher successfully:'.$res['succ'].'<br>';
+					echo 'insert aq_teacher failed:'.$res['err'].'<br>'.'<br>'.'<br>';
+					echo 'checkout dir log for more detail';
 			}
 	}
 
 	//
 	function edit_page(){
 		$teacher_id = $this->input->get('teacher_id');
+		$user_info = $this->aubm->get_user_info($teacher_id);
 		$res = $this->aubm->get_aq_teacher_list(true,$teacher_id);
 		$subject_types = $this->aubm->get_all_subject_type();
 		$points = $this->aubm->get_aq_field($res[0]['subject'],$res[0]['grade_type']);
 		$my_points = explode(',',$res[0]['aq_fields']);
+		$res[0]['email'] = $user_info->email;
 		// var_dump($points,$my_points);
 		$this->load->view('edit_teacher2.html',array('res'=>$res[0],'subject_types'=>$subject_types,'points'=>$points,'my_points'=>$my_points));
 	}

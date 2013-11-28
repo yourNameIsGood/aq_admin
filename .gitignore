@@ -1,0 +1,8 @@
+.DS*
+*.swp
+templates_c
+database.php
+log
+.tags
+.tags_sorted_by_file
+.travis.yml

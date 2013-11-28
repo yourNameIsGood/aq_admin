@@ -4,6 +4,7 @@
 
  
 id:<?php echo $res['id']?><input type='hidden' id='id' value='<?php echo $res['id']?>'/><br>
+email:<?php echo $res['email']?><br>
 姓名：<input type='text' id='name' value='<?php echo $res['name']?>' /><br>
 是否是答疑老师：<input type='radio' name='radio' value='1' <?php if($res['aq_teacher']){?>checked<?php }?>/>是  <input type='radio' name='radio' value='0' <?php if(!$res['aq_teacher']){?>checked<?php }?>/>否<br>
 账户余额：<?php echo $res['aq_account_balance']?><br>
