@@ -54,12 +54,7 @@ $db['default']['username'] = 'tizi';
 $db['default']['password'] = 'tizi';
 $db['default']['database'] = 'new_zujuan';
 
-//操作线上库  tizi 
- // $db['default']['hostname'] = '112.124.59.187';
- // $db['default']['username'] = 'lu';
- // $db['default']['password'] = 'lucong_2013_1007';
- // $db['default']['port']     = '6060';
- // $db['default']['database'] = 'tizi';
+
 
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
